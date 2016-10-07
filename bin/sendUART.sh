@@ -8,7 +8,7 @@
 #
 
 ttyPort="ttyACM0"
-silenceTime="0.05"
+silenceTime="1"
 
 word=$1
 rate=$2
@@ -31,8 +31,14 @@ byte_9=`echo $word | cut -c19-20`
 byte_10=`echo $word | cut -c21-22`
 byte_11=`echo $word | cut -c23-24`
 byte_12=`echo $word | cut -c25-26`
+byte_13=`echo $word | cut -c27-28`
+byte_14=`echo $word | cut -c29-30`
+byte_15=`echo $word | cut -c31-32`
+byte_16=`echo $word | cut -c33-34`
+byte_17=`echo $word | cut -c35-36`
 
-echo "Sending byte stream:" $start_char '+' $byte_1 '+' $byte_2 '+' $byte_3 '+' $byte_4 '+' $byte_5 '+' $byte_6 '+' $byte_7 '+' $byte_8 '+' $byte_9 '+' $byte_10 '+' $byte_11 '+' $byte_12
+
+echo "Sending byte stream:" $start_char '+' $byte_1 '+' $byte_2 '+' $byte_3 '+' $byte_4 '+' $byte_5 '+' $byte_6 '+' $byte_7 '+' $byte_8 '+' $byte_9 '+' $byte_10 '+' $byte_11 '+' $byte_12 '+' $byte_13 '+' $byte_14 '+' $byte_15 '+' $byte_16 '+' $byte_17
 
 echo -en "\x$start_char" > $device
 sleep $silenceTime
@@ -59,5 +65,15 @@ sleep $silenceTime
 echo -en "\x$byte_11" > $device
 sleep $silenceTime
 echo -en "\x$byte_12" > $device
+sleep $silenceTime
+echo -en "\x$byte_13" > $device
+sleep $silenceTime
+echo -en "\x$byte_14" > $device
+sleep $silenceTime
+echo -en "\x$byte_15" > $device
+sleep $silenceTime
+echo -en "\x$byte_16" > $device
+sleep $silenceTime
+echo -en "\x$byte_17" > $device
 sleep $silenceTime
 

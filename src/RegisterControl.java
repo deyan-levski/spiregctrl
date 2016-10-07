@@ -1026,7 +1026,7 @@ public class RegisterControl {
 				frame.getContentPane().add(baudRateField, gbc_baudRateField);
 		
 				TextField uartDeviceField = new TextField();
-				uartDeviceField.setText("/dev/ttyACM0");
+				uartDeviceField.setText("/dev/ttyUSB0");
 				uartDeviceField.setColumns(14);
 				GridBagConstraints gbc_uartDeviceField = new GridBagConstraints();
 				gbc_uartDeviceField.insets = new Insets(0, 0, 5, 5);
@@ -1679,7 +1679,10 @@ public class RegisterControl {
 				
 				String strVoltVal = dacField.getText();
 				int voltVal = Integer.parseInt(strVoltVal);
-				String strBinVoltVal = Integer.toString(voltVal, 2);
+				
+				String strBinVoltVal = String.format("%14s", Integer.toBinaryString(voltVal)).replace(' ', '0');
+				
+				//String strBinVoltVal = Integer.toString(voltVal, 2);
 				
 				String strChannel = channelField.getText();
 				String strCommand = commandField.getText();
@@ -1719,10 +1722,26 @@ public class RegisterControl {
 						+ strSREG_85 + strSREG_86 + strSREG_87).reverse().toString();
 				String byte12 = new StringBuilder(strSREG_88 + strSREG_89 + strSREG_90 + strSREG_91 + strSREG_92
 						+ strSREG_93 + strSREG_94 + strSREG_95).reverse().toString();
-				String byteDAC = new StringBuilder(strIVREF + "00000" + strBinVoltVal + strChannel + strCommand + "0000" + strSELDAC + "0000000" ).toString();  // no reverse
+				
+				String wrdDAC1 = new StringBuilder("00000" + strIVREF).toString();
+				String wrdDAC2 = new StringBuilder(strBinVoltVal).reverse().toString();
+				String wrdDAC3 = new StringBuilder(strChannel).toString();
+				String wrdDAC4 = new StringBuilder("0000" + strCommand).toString();
+				String wrdDAC5 = new StringBuilder("0000000" + strSELDAC).toString();
+				
+				String catWrdDAC = new StringBuilder(wrdDAC5 + wrdDAC4 + wrdDAC3 + wrdDAC2 + wrdDAC1).reverse().toString();  // no reverse or reverse?
+				
+				String byte13 = catWrdDAC.substring(0, 8);
+				String byte14 = catWrdDAC.substring(8, 16);
+				String byte15 = catWrdDAC.substring(16, 24);
+				String byte16 = catWrdDAC.substring(24, 32);
+				String byte17 = catWrdDAC.substring(32, 40);
+				
+				String byteDAC = new StringBuilder(byte13 + byte14 + byte15 + byte16).toString();
+				//String byteDAC = new StringBuilder(wrdDAC1 + strBinVoltVal + strChannel + strCommand + "0000" + strSELDAC + "0000000" ).reverse().toString();  // no reverse or reverse?
 
-				String sendBytes = new StringBuilder(byte1 + byte2 + byte3 + byte4 + byte5 + byte6 + byte7 + byte8
-						+ byte9 + byte10 + byte11 + byte12 + byteDAC).reverse().toString();
+				String sendBytes = new StringBuilder(byte17 + byte16 + byte15 + byte14 + byte13 + byte1 + byte2 + byte3 + byte4 + byte5 + byte6 + byte7 + byte8
+						+ byte9 + byte10 + byte11 + byte12).reverse().toString();
 
 				String catStr = startByte + sendBytes;
 
@@ -1746,7 +1765,7 @@ public class RegisterControl {
 						//
 						// String[] cmd = { homeDir + "/sendUART.sh", hexStr,
 						// baudRate, uartDevice };
-						String[] cmd = { "sendUART.sh", hexStr, baudRate, uartDevice };
+						String[] cmd = { "/media/data/git/spiregctrl/src/sendUART.sh", hexStr, baudRate, uartDevice };
 						Process p = Runtime.getRuntime().exec(cmd);
 					} catch (IOException ioEx) {
 						ioEx.printStackTrace(); // or what ever you want to do
