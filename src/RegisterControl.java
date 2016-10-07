@@ -1070,7 +1070,7 @@ public class RegisterControl {
 		frame.getContentPane().add(label_10, gbc_label_10);
 		
 		TextField commandField = new TextField();
-		commandField.setText("0000");
+		commandField.setText("0011");
 		commandField.setColumns(8);
 		GridBagConstraints gbc_commandField = new GridBagConstraints();
 		gbc_commandField.anchor = GridBagConstraints.WEST;
@@ -1724,7 +1724,7 @@ public class RegisterControl {
 						+ strSREG_93 + strSREG_94 + strSREG_95).reverse().toString();
 				
 				String wrdDAC1 = new StringBuilder("00000" + strIVREF).toString();
-				String wrdDAC2 = new StringBuilder(strBinVoltVal).reverse().toString();
+				String wrdDAC2 = new StringBuilder(strBinVoltVal).toString();
 				String wrdDAC3 = new StringBuilder(strChannel).toString();
 				String wrdDAC4 = new StringBuilder("0000" + strCommand).toString();
 				String wrdDAC5 = new StringBuilder("0000000" + strSELDAC).toString();
