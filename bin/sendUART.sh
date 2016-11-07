@@ -8,7 +8,7 @@
 #
 
 ttyPort="ttyACM0"
-silenceTime="1"
+silenceTime="0.05"
 
 word=$1
 rate=$2

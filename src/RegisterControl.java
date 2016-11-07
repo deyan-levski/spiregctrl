@@ -30,6 +30,7 @@ import javax.swing.JMenuItem;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JRadioButton;
+import javax.swing.UIManager;
 
 public class RegisterControl {
 
@@ -41,6 +42,11 @@ public class RegisterControl {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) throws IOException {
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
