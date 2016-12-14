@@ -1703,32 +1703,19 @@ public class RegisterControl {
 
 				// new StringBuilder(strSREG_0).reverse().toString();
 
-				String byte1 = new StringBuilder(
-						strSREG_0 + strSREG_1 + strSREG_2 + strSREG_3 + strSREG_4 + strSREG_5 + strSREG_6 + strSREG_7)
-								.reverse().toString();
-				String byte2 = new StringBuilder(strSREG_8 + strSREG_9 + strSREG_10 + strSREG_11 + strSREG_12
-						+ strSREG_13 + strSREG_14 + strSREG_15).reverse().toString();
-				String byte3 = new StringBuilder(strSREG_16 + strSREG_17 + strSREG_18 + strSREG_19 + strSREG_20
-						+ strSREG_21 + strSREG_22 + strSREG_23).reverse().toString();
-				String byte4 = new StringBuilder(strSREG_24 + strSREG_25 + strSREG_26 + strSREG_27 + strSREG_28
-						+ strSREG_29 + strSREG_30 + strSREG_31).reverse().toString();
-				String byte5 = new StringBuilder(strSREG_32 + strSREG_33 + strSREG_34 + strSREG_35 + strSREG_36
-						+ strSREG_37 + strSREG_38 + strSREG_39).reverse().toString();
-				String byte6 = new StringBuilder(strSREG_40 + strSREG_41 + strSREG_42 + strSREG_43 + strSREG_44
-						+ strSREG_45 + strSREG_46 + strSREG_47).reverse().toString();
-				String byte7 = new StringBuilder(strSREG_48 + strSREG_49 + strSREG_50 + strSREG_51 + strSREG_52
-						+ strSREG_53 + strSREG_54 + strSREG_55).reverse().toString();
-				String byte8 = new StringBuilder(strSREG_56 + strSREG_57 + strSREG_58 + strSREG_59 + strSREG_60
-						+ strSREG_61 + strSREG_62 + strSREG_63).reverse().toString();
-				String byte9 = new StringBuilder(strSREG_64 + strSREG_65 + strSREG_66 + strSREG_67 + strSREG_68
-						+ strSREG_69 + strSREG_70 + strSREG_71).reverse().toString();
-				String byte10 = new StringBuilder(strSREG_72 + strSREG_73 + strSREG_74 + strSREG_75 + strSREG_76
-						+ strSREG_77 + strSREG_78 + strSREG_79).reverse().toString();
-				String byte11 = new StringBuilder(strSREG_80 + strSREG_81 + strSREG_82 + strSREG_83 + strSREG_84
-						+ strSREG_85 + strSREG_86 + strSREG_87).reverse().toString();
-				String byte12 = new StringBuilder(strSREG_88 + strSREG_89 + strSREG_90 + strSREG_91 + strSREG_92
-						+ strSREG_93 + strSREG_94 + strSREG_95).reverse().toString();
-				
+				String byte1 = new StringBuilder(strSREG_0 + strSREG_1 + strSREG_2 + strSREG_3 + strSREG_4 + strSREG_5 + strSREG_6 + strSREG_7).reverse().toString();
+				String byte2 = new StringBuilder(strSREG_8 + strSREG_9 + strSREG_10 + strSREG_11 + strSREG_12 + strSREG_13 + strSREG_14 + strSREG_15).reverse().toString();
+				String byte3 = new StringBuilder(strSREG_16 + strSREG_17 + strSREG_18 + strSREG_19 + strSREG_20	+ strSREG_21 + strSREG_22 + strSREG_23).reverse().toString();
+				String byte4 = new StringBuilder(strSREG_24 + strSREG_25 + strSREG_26 + strSREG_27 + strSREG_28	+ strSREG_29 + strSREG_30 + strSREG_31).reverse().toString();
+				String byte5 = new StringBuilder(strSREG_32 + strSREG_33 + strSREG_34 + strSREG_35 + strSREG_36	+ strSREG_37 + strSREG_38 + strSREG_39).reverse().toString();
+				String byte6 = new StringBuilder(strSREG_40 + strSREG_41 + strSREG_42 + strSREG_43 + strSREG_44	+ strSREG_45 + strSREG_46 + strSREG_47).reverse().toString();
+				String byte7 = new StringBuilder(strSREG_48 + strSREG_49 + strSREG_50 + strSREG_51 + strSREG_52	+ strSREG_53 + strSREG_54 + strSREG_55).reverse().toString();
+				String byte8 = new StringBuilder(strSREG_56 + strSREG_57 + strSREG_58 + strSREG_59 + strSREG_60	+ strSREG_61 + strSREG_62 + strSREG_63).reverse().toString();
+				String byte9 = new StringBuilder(strSREG_64 + strSREG_65 + strSREG_66 + strSREG_67 + strSREG_68	+ strSREG_69 + strSREG_70 + strSREG_71).reverse().toString();
+				String byte10 = new StringBuilder(strSREG_72 + strSREG_73 + strSREG_74 + strSREG_75 + strSREG_76 + strSREG_77 + strSREG_78 + strSREG_79).reverse().toString();
+				String byte11 = new StringBuilder(strSREG_80 + strSREG_81 + strSREG_82 + strSREG_83 + strSREG_84 + strSREG_85 + strSREG_86 + strSREG_87).reverse().toString();
+				String byte12 = new StringBuilder(strSREG_88 + strSREG_89 + strSREG_90 + strSREG_91 + strSREG_92 + strSREG_93 + strSREG_94 + strSREG_95).reverse().toString(); 
+					
 				String wrdDAC1 = new StringBuilder("00000" + strIVREF).toString();
 				String wrdDAC2 = new StringBuilder(strBinVoltVal).toString();
 				String wrdDAC3 = new StringBuilder(strChannel).toString();
@@ -1746,12 +1733,14 @@ public class RegisterControl {
 				String byteDAC = new StringBuilder(byte13 + byte14 + byte15 + byte16).toString();
 				//String byteDAC = new StringBuilder(wrdDAC1 + strBinVoltVal + strChannel + strCommand + "0000" + strSELDAC + "0000000" ).reverse().toString();  // no reverse or reverse?
 
-				String sendBytes = new StringBuilder(byte17 + byte16 + byte15 + byte14 + byte13 + byte1 + byte2 + byte3 + byte4 + byte5 + byte6 + byte7 + byte8
-						+ byte9 + byte10 + byte11 + byte12).reverse().toString();
+				String sendBytes = new StringBuilder(byte17 + byte16 + byte15 + byte14 + byte13 + byte1 + byte2 + byte3 + byte4 + byte5 + byte6 + byte7 + byte8 + byte9 + byte10 + byte11 + byte12).reverse().toString();
+				String sregBytes = new StringBuilder(byte1 + byte2 + byte3 + byte4 + byte5 + byte6 + byte7 + byte8 + byte9 + byte10 + byte11 + byte12).reverse().toString();
 
 				String catStr = startByte + sendBytes;
+				String catSREGStr = sregBytes;
 
-				binField.setText(catStr);
+				//binField.setText(catStr);
+				binField.setText(catSREGStr);
 
 				String hexStr = new BigInteger(catStr, 2).toString(16);
 

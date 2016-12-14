@@ -1,5 +1,5 @@
 #Form settings
-#Wed Nov 23 16:21:36 GMT 2016
+#Tue Dec 06 16:01:12 GMT 2016
 settings.SREG_69=false
 settings.SREG_68=false
 settings.SREG_67=false
@@ -10,11 +10,11 @@ settings.SREG_63=true
 settings.SREG_62=false
 settings.SREG_61=false
 settings.SREG_60=true
-settings.SREG_59=false
-settings.SREG_58=false
-settings.SREG_57=false
+settings.SREG_59=true
+settings.SREG_58=true
+settings.SREG_57=true
 settings.SREG_56=true
-settings.SREG_55=false
+settings.SREG_55=true
 settings.SREG_54=false
 settings.SREG_53=true
 settings.SREG_52=false

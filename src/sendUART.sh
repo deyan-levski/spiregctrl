@@ -8,7 +8,7 @@
 #
 
 ttyPort="ttyACM0"
-silenceTime="0.05"
+silenceTime="0.0055"
 
 word=$1
 rate=$2
@@ -76,4 +76,3 @@ echo -en "\x$byte_16" > $device
 sleep $silenceTime
 echo -en "\x$byte_17" > $device
 sleep $silenceTime
-
