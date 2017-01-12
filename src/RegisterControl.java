@@ -1067,6 +1067,14 @@ public class RegisterControl {
 		gbc_dacField.gridy = 30;
 		frame.getContentPane().add(dacField, gbc_dacField);
 		
+		Button sendPlus = new Button("+");
+		sendPlus.setActionCommand("sendPlus");
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.insets = new Insets(0, 0, 5, 5);
+		gbc_button.gridx = 5;
+		gbc_button.gridy = 30;
+		frame.getContentPane().add(sendPlus, gbc_button);
+		
 		Label label_10 = new Label("Command:");
 		GridBagConstraints gbc_label_10 = new GridBagConstraints();
 		gbc_label_10.anchor = GridBagConstraints.WEST;
@@ -1091,6 +1099,14 @@ public class RegisterControl {
 		gbc_IVREFON.gridx = 4;
 		gbc_IVREFON.gridy = 31;
 		frame.getContentPane().add(IVREFON, gbc_IVREFON);
+		
+		Button sendMinus = new Button("-");
+		sendMinus.setActionCommand("sendMinus");
+		GridBagConstraints gbc_button_1 = new GridBagConstraints();
+		gbc_button_1.insets = new Insets(0, 0, 5, 5);
+		gbc_button_1.gridx = 5;
+		gbc_button_1.gridy = 31;
+		frame.getContentPane().add(sendMinus, gbc_button_1);
 		
 		Label label_11 = new Label("DAC Word:");
 		GridBagConstraints gbc_label_11 = new GridBagConstraints();
@@ -1572,7 +1588,7 @@ public class RegisterControl {
 								"About", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-
+		
 		sendButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -1685,6 +1701,420 @@ public class RegisterControl {
 				
 				String strVoltVal = dacField.getText();
 				int voltVal = Integer.parseInt(strVoltVal);
+							
+				String strBinVoltVal = String.format("%14s", Integer.toBinaryString(voltVal)).replace(' ', '0');
+				
+				//String strBinVoltVal = Integer.toString(voltVal, 2);
+				
+				String strChannel = channelField.getText();
+				String strCommand = commandField.getText();
+
+				String startByte = "10101010";
+
+				if (byteButton1.isSelected()) {
+					startByte = "10101010";
+				} else {
+					startByte = "10101110";
+				}
+
+				// new StringBuilder(strSREG_0).reverse().toString();
+
+				String byte1 = new StringBuilder(strSREG_0 + strSREG_1 + strSREG_2 + strSREG_3 + strSREG_4 + strSREG_5 + strSREG_6 + strSREG_7).reverse().toString();
+				String byte2 = new StringBuilder(strSREG_8 + strSREG_9 + strSREG_10 + strSREG_11 + strSREG_12 + strSREG_13 + strSREG_14 + strSREG_15).reverse().toString();
+				String byte3 = new StringBuilder(strSREG_16 + strSREG_17 + strSREG_18 + strSREG_19 + strSREG_20	+ strSREG_21 + strSREG_22 + strSREG_23).reverse().toString();
+				String byte4 = new StringBuilder(strSREG_24 + strSREG_25 + strSREG_26 + strSREG_27 + strSREG_28	+ strSREG_29 + strSREG_30 + strSREG_31).reverse().toString();
+				String byte5 = new StringBuilder(strSREG_32 + strSREG_33 + strSREG_34 + strSREG_35 + strSREG_36	+ strSREG_37 + strSREG_38 + strSREG_39).reverse().toString();
+				String byte6 = new StringBuilder(strSREG_40 + strSREG_41 + strSREG_42 + strSREG_43 + strSREG_44	+ strSREG_45 + strSREG_46 + strSREG_47).reverse().toString();
+				String byte7 = new StringBuilder(strSREG_48 + strSREG_49 + strSREG_50 + strSREG_51 + strSREG_52	+ strSREG_53 + strSREG_54 + strSREG_55).reverse().toString();
+				String byte8 = new StringBuilder(strSREG_56 + strSREG_57 + strSREG_58 + strSREG_59 + strSREG_60	+ strSREG_61 + strSREG_62 + strSREG_63).reverse().toString();
+				String byte9 = new StringBuilder(strSREG_64 + strSREG_65 + strSREG_66 + strSREG_67 + strSREG_68	+ strSREG_69 + strSREG_70 + strSREG_71).reverse().toString();
+				String byte10 = new StringBuilder(strSREG_72 + strSREG_73 + strSREG_74 + strSREG_75 + strSREG_76 + strSREG_77 + strSREG_78 + strSREG_79).reverse().toString();
+				String byte11 = new StringBuilder(strSREG_80 + strSREG_81 + strSREG_82 + strSREG_83 + strSREG_84 + strSREG_85 + strSREG_86 + strSREG_87).reverse().toString();
+				String byte12 = new StringBuilder(strSREG_88 + strSREG_89 + strSREG_90 + strSREG_91 + strSREG_92 + strSREG_93 + strSREG_94 + strSREG_95).reverse().toString(); 
+					
+				String wrdDAC1 = new StringBuilder("00000" + strIVREF).toString();
+				String wrdDAC2 = new StringBuilder(strBinVoltVal).toString();
+				String wrdDAC3 = new StringBuilder(strChannel).toString();
+				String wrdDAC4 = new StringBuilder("0000" + strCommand).toString();
+				String wrdDAC5 = new StringBuilder("0000000" + strSELDAC).toString();
+				
+				String catWrdDAC = new StringBuilder(wrdDAC5 + wrdDAC4 + wrdDAC3 + wrdDAC2 + wrdDAC1).reverse().toString();  // no reverse or reverse?
+				
+				String byte13 = catWrdDAC.substring(0, 8);
+				String byte14 = catWrdDAC.substring(8, 16);
+				String byte15 = catWrdDAC.substring(16, 24);
+				String byte16 = catWrdDAC.substring(24, 32);
+				String byte17 = catWrdDAC.substring(32, 40);
+				
+				String byteDAC = new StringBuilder(byte13 + byte14 + byte15 + byte16).toString();
+				//String byteDAC = new StringBuilder(wrdDAC1 + strBinVoltVal + strChannel + strCommand + "0000" + strSELDAC + "0000000" ).reverse().toString();  // no reverse or reverse?
+
+				String sendBytes = new StringBuilder(byte17 + byte16 + byte15 + byte14 + byte13 + byte1 + byte2 + byte3 + byte4 + byte5 + byte6 + byte7 + byte8 + byte9 + byte10 + byte11 + byte12).reverse().toString();
+				String sregBytes = new StringBuilder(byte1 + byte2 + byte3 + byte4 + byte5 + byte6 + byte7 + byte8 + byte9 + byte10 + byte11 + byte12).reverse().toString();
+
+				String catStr = startByte + sendBytes;
+				String catSREGStr = sregBytes;
+
+				//binField.setText(catStr);
+				binField.setText(catSREGStr);
+
+				String hexStr = new BigInteger(catStr, 2).toString(16);
+
+				// int decReg = Integer.parseInt(catStr,2);
+				// String hexStr = Integer.toString(decReg,16);
+
+				hexField.setText(hexStr);
+				dacWordField.setText(byteDAC);
+
+				if (rdbtnUARTLoad.isSelected()) {
+
+					String baudRate = baudRateField.getText();
+					String uartDevice = uartDeviceField.getText();
+
+					try {
+						// String homeDir = System.getenv("HOME");
+						//
+						// String[] cmd = { homeDir + "/sendUART.sh", hexStr,
+						// baudRate, uartDevice };
+						String[] cmd = { "/media/data/git/spiregctrl/src/sendUART.sh", hexStr, baudRate, uartDevice };
+						Process p = Runtime.getRuntime().exec(cmd);
+					} catch (IOException ioEx) {
+						ioEx.printStackTrace(); // or what ever you want to do
+												// with it
+					}
+
+				}
+
+			}
+
+		});
+		
+		sendMinus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String strSREG_0 = toNumeralString(SREG_0.getState());
+				String strSREG_1 = toNumeralString(SREG_1.getState());
+				String strSREG_2 = toNumeralString(SREG_2.getState());
+				String strSREG_3 = toNumeralString(SREG_3.getState());
+				String strSREG_4 = toNumeralString(SREG_4.getState());
+				String strSREG_5 = toNumeralString(SREG_5.getState());
+				String strSREG_6 = toNumeralString(SREG_6.getState());
+				String strSREG_7 = toNumeralString(SREG_7.getState());
+				String strSREG_8 = toNumeralString(SREG_8.getState());
+				String strSREG_9 = toNumeralString(SREG_9.getState());
+				String strSREG_10 = toNumeralString(SREG_10.getState());
+				String strSREG_11 = toNumeralString(SREG_11.getState());
+				String strSREG_12 = toNumeralString(SREG_12.getState());
+				String strSREG_13 = toNumeralString(SREG_13.getState());
+				String strSREG_14 = toNumeralString(SREG_14.getState());
+				String strSREG_15 = toNumeralString(SREG_15.getState());
+				String strSREG_16 = toNumeralString(SREG_16.getState());
+				String strSREG_17 = toNumeralString(SREG_17.getState());
+				String strSREG_18 = toNumeralString(SREG_18.getState());
+				String strSREG_19 = toNumeralString(SREG_19.getState());
+				String strSREG_20 = toNumeralString(SREG_20.getState());
+				String strSREG_21 = toNumeralString(SREG_21.getState());
+				String strSREG_22 = toNumeralString(SREG_22.getState());
+				String strSREG_23 = toNumeralString(SREG_23.getState());
+				String strSREG_24 = toNumeralString(SREG_24.getState());
+				String strSREG_25 = toNumeralString(SREG_25.getState());
+				String strSREG_26 = toNumeralString(SREG_26.getState());
+				String strSREG_27 = toNumeralString(SREG_27.getState());
+				String strSREG_28 = toNumeralString(SREG_28.getState());
+				String strSREG_29 = toNumeralString(SREG_29.getState());
+				String strSREG_30 = toNumeralString(SREG_30.getState());
+				String strSREG_31 = toNumeralString(SREG_31.getState());
+				String strSREG_32 = toNumeralString(SREG_32.getState());
+				String strSREG_33 = toNumeralString(SREG_33.getState());
+				String strSREG_34 = toNumeralString(SREG_34.getState());
+				String strSREG_35 = toNumeralString(SREG_35.getState());
+				String strSREG_36 = toNumeralString(SREG_36.getState());
+				String strSREG_37 = toNumeralString(SREG_37.getState());
+				String strSREG_38 = toNumeralString(SREG_38.getState());
+				String strSREG_39 = toNumeralString(SREG_39.getState());
+				String strSREG_40 = toNumeralString(SREG_40.getState());
+				String strSREG_41 = toNumeralString(SREG_41.getState());
+				String strSREG_42 = toNumeralString(SREG_42.getState());
+				String strSREG_43 = toNumeralString(SREG_43.getState());
+				String strSREG_44 = toNumeralString(SREG_44.getState());
+				String strSREG_45 = toNumeralString(SREG_45.getState());
+				String strSREG_46 = toNumeralString(SREG_46.getState());
+				String strSREG_47 = toNumeralString(SREG_47.getState());
+				String strSREG_48 = toNumeralString(SREG_48.getState());
+				String strSREG_49 = toNumeralString(SREG_49.getState());
+				String strSREG_50 = toNumeralString(SREG_50.getState());
+				String strSREG_51 = toNumeralString(SREG_51.getState());
+				String strSREG_52 = toNumeralString(SREG_52.getState());
+				String strSREG_53 = toNumeralString(SREG_53.getState());
+				String strSREG_54 = toNumeralString(SREG_54.getState());
+				String strSREG_55 = toNumeralString(SREG_55.getState());
+				String strSREG_56 = toNumeralString(SREG_56.getState());
+				String strSREG_57 = toNumeralString(SREG_57.getState());
+				String strSREG_58 = toNumeralString(SREG_58.getState());
+				String strSREG_59 = toNumeralString(SREG_59.getState());
+				String strSREG_60 = toNumeralString(SREG_60.getState());
+				String strSREG_61 = toNumeralString(SREG_61.getState());
+				String strSREG_62 = toNumeralString(SREG_62.getState());
+				String strSREG_63 = toNumeralString(SREG_63.getState());
+				String strSREG_64 = toNumeralString(SREG_64.getState());
+				String strSREG_65 = toNumeralString(SREG_65.getState());
+				String strSREG_66 = toNumeralString(SREG_66.getState());
+				String strSREG_67 = toNumeralString(SREG_67.getState());
+				String strSREG_68 = toNumeralString(SREG_68.getState());
+				String strSREG_69 = toNumeralString(SREG_69.getState());
+				String strSREG_70 = toNumeralString(SREG_70.getState());
+				String strSREG_71 = toNumeralString(SREG_71.getState());
+				String strSREG_72 = toNumeralString(SREG_72.getState());
+				String strSREG_73 = toNumeralString(SREG_73.getState());
+				String strSREG_74 = toNumeralString(SREG_74.getState());
+				String strSREG_75 = toNumeralString(SREG_75.getState());
+				String strSREG_76 = toNumeralString(SREG_76.getState());
+				String strSREG_77 = toNumeralString(SREG_77.getState());
+				String strSREG_78 = toNumeralString(SREG_78.getState());
+				String strSREG_79 = toNumeralString(SREG_79.getState());
+				String strSREG_80 = toNumeralString(SREG_80.getState());
+				String strSREG_81 = toNumeralString(SREG_81.getState());
+				String strSREG_82 = toNumeralString(SREG_82.getState());
+				String strSREG_83 = toNumeralString(SREG_83.getState());
+				String strSREG_84 = toNumeralString(SREG_84.getState());
+				String strSREG_85 = toNumeralString(SREG_85.getState());
+				String strSREG_86 = toNumeralString(SREG_86.getState());
+				String strSREG_87 = toNumeralString(SREG_87.getState());
+				String strSREG_88 = toNumeralString(SREG_88.getState());
+				String strSREG_89 = toNumeralString(SREG_89.getState());
+				String strSREG_90 = toNumeralString(SREG_90.getState());
+				String strSREG_91 = toNumeralString(SREG_91.getState());
+				String strSREG_92 = toNumeralString(SREG_92.getState());
+				String strSREG_93 = toNumeralString(SREG_93.getState());
+				String strSREG_94 = toNumeralString(SREG_94.getState());
+				String strSREG_95 = toNumeralString(SREG_95.getState());
+				
+				String strIVREF = toNumeralString(IVREFON.getState());
+				
+				String strSELDAC = "0";
+						
+				if (rdbtnDACSELA.isSelected()){
+					strSELDAC = "1";
+				} else {
+					strSELDAC = "0";
+				}
+				
+				String strVoltVal = dacField.getText();
+				int voltVal = Integer.parseInt(strVoltVal);
+				
+				voltVal = voltVal - 1;
+				
+				strVoltVal = Integer.toString(voltVal);
+				
+				dacField.setText(strVoltVal);
+
+				
+				String strBinVoltVal = String.format("%14s", Integer.toBinaryString(voltVal)).replace(' ', '0');
+				
+				//String strBinVoltVal = Integer.toString(voltVal, 2);
+				
+				String strChannel = channelField.getText();
+				String strCommand = commandField.getText();
+
+				String startByte = "10101010";
+
+				if (byteButton1.isSelected()) {
+					startByte = "10101010";
+				} else {
+					startByte = "10101110";
+				}
+
+				// new StringBuilder(strSREG_0).reverse().toString();
+
+				String byte1 = new StringBuilder(strSREG_0 + strSREG_1 + strSREG_2 + strSREG_3 + strSREG_4 + strSREG_5 + strSREG_6 + strSREG_7).reverse().toString();
+				String byte2 = new StringBuilder(strSREG_8 + strSREG_9 + strSREG_10 + strSREG_11 + strSREG_12 + strSREG_13 + strSREG_14 + strSREG_15).reverse().toString();
+				String byte3 = new StringBuilder(strSREG_16 + strSREG_17 + strSREG_18 + strSREG_19 + strSREG_20	+ strSREG_21 + strSREG_22 + strSREG_23).reverse().toString();
+				String byte4 = new StringBuilder(strSREG_24 + strSREG_25 + strSREG_26 + strSREG_27 + strSREG_28	+ strSREG_29 + strSREG_30 + strSREG_31).reverse().toString();
+				String byte5 = new StringBuilder(strSREG_32 + strSREG_33 + strSREG_34 + strSREG_35 + strSREG_36	+ strSREG_37 + strSREG_38 + strSREG_39).reverse().toString();
+				String byte6 = new StringBuilder(strSREG_40 + strSREG_41 + strSREG_42 + strSREG_43 + strSREG_44	+ strSREG_45 + strSREG_46 + strSREG_47).reverse().toString();
+				String byte7 = new StringBuilder(strSREG_48 + strSREG_49 + strSREG_50 + strSREG_51 + strSREG_52	+ strSREG_53 + strSREG_54 + strSREG_55).reverse().toString();
+				String byte8 = new StringBuilder(strSREG_56 + strSREG_57 + strSREG_58 + strSREG_59 + strSREG_60	+ strSREG_61 + strSREG_62 + strSREG_63).reverse().toString();
+				String byte9 = new StringBuilder(strSREG_64 + strSREG_65 + strSREG_66 + strSREG_67 + strSREG_68	+ strSREG_69 + strSREG_70 + strSREG_71).reverse().toString();
+				String byte10 = new StringBuilder(strSREG_72 + strSREG_73 + strSREG_74 + strSREG_75 + strSREG_76 + strSREG_77 + strSREG_78 + strSREG_79).reverse().toString();
+				String byte11 = new StringBuilder(strSREG_80 + strSREG_81 + strSREG_82 + strSREG_83 + strSREG_84 + strSREG_85 + strSREG_86 + strSREG_87).reverse().toString();
+				String byte12 = new StringBuilder(strSREG_88 + strSREG_89 + strSREG_90 + strSREG_91 + strSREG_92 + strSREG_93 + strSREG_94 + strSREG_95).reverse().toString(); 
+					
+				String wrdDAC1 = new StringBuilder("00000" + strIVREF).toString();
+				String wrdDAC2 = new StringBuilder(strBinVoltVal).toString();
+				String wrdDAC3 = new StringBuilder(strChannel).toString();
+				String wrdDAC4 = new StringBuilder("0000" + strCommand).toString();
+				String wrdDAC5 = new StringBuilder("0000000" + strSELDAC).toString();
+				
+				String catWrdDAC = new StringBuilder(wrdDAC5 + wrdDAC4 + wrdDAC3 + wrdDAC2 + wrdDAC1).reverse().toString();  // no reverse or reverse?
+				
+				String byte13 = catWrdDAC.substring(0, 8);
+				String byte14 = catWrdDAC.substring(8, 16);
+				String byte15 = catWrdDAC.substring(16, 24);
+				String byte16 = catWrdDAC.substring(24, 32);
+				String byte17 = catWrdDAC.substring(32, 40);
+				
+				String byteDAC = new StringBuilder(byte13 + byte14 + byte15 + byte16).toString();
+				//String byteDAC = new StringBuilder(wrdDAC1 + strBinVoltVal + strChannel + strCommand + "0000" + strSELDAC + "0000000" ).reverse().toString();  // no reverse or reverse?
+
+				String sendBytes = new StringBuilder(byte17 + byte16 + byte15 + byte14 + byte13 + byte1 + byte2 + byte3 + byte4 + byte5 + byte6 + byte7 + byte8 + byte9 + byte10 + byte11 + byte12).reverse().toString();
+				String sregBytes = new StringBuilder(byte1 + byte2 + byte3 + byte4 + byte5 + byte6 + byte7 + byte8 + byte9 + byte10 + byte11 + byte12).reverse().toString();
+
+				String catStr = startByte + sendBytes;
+				String catSREGStr = sregBytes;
+
+				//binField.setText(catStr);
+				binField.setText(catSREGStr);
+
+				String hexStr = new BigInteger(catStr, 2).toString(16);
+
+				// int decReg = Integer.parseInt(catStr,2);
+				// String hexStr = Integer.toString(decReg,16);
+
+				hexField.setText(hexStr);
+				dacWordField.setText(byteDAC);
+
+				if (rdbtnUARTLoad.isSelected()) {
+
+					String baudRate = baudRateField.getText();
+					String uartDevice = uartDeviceField.getText();
+
+					try {
+						// String homeDir = System.getenv("HOME");
+						//
+						// String[] cmd = { homeDir + "/sendUART.sh", hexStr,
+						// baudRate, uartDevice };
+						String[] cmd = { "/media/data/git/spiregctrl/src/sendUART.sh", hexStr, baudRate, uartDevice };
+						Process p = Runtime.getRuntime().exec(cmd);
+					} catch (IOException ioEx) {
+						ioEx.printStackTrace(); // or what ever you want to do
+												// with it
+					}
+
+				}
+
+			}
+
+		});
+
+		sendPlus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String strSREG_0 = toNumeralString(SREG_0.getState());
+				String strSREG_1 = toNumeralString(SREG_1.getState());
+				String strSREG_2 = toNumeralString(SREG_2.getState());
+				String strSREG_3 = toNumeralString(SREG_3.getState());
+				String strSREG_4 = toNumeralString(SREG_4.getState());
+				String strSREG_5 = toNumeralString(SREG_5.getState());
+				String strSREG_6 = toNumeralString(SREG_6.getState());
+				String strSREG_7 = toNumeralString(SREG_7.getState());
+				String strSREG_8 = toNumeralString(SREG_8.getState());
+				String strSREG_9 = toNumeralString(SREG_9.getState());
+				String strSREG_10 = toNumeralString(SREG_10.getState());
+				String strSREG_11 = toNumeralString(SREG_11.getState());
+				String strSREG_12 = toNumeralString(SREG_12.getState());
+				String strSREG_13 = toNumeralString(SREG_13.getState());
+				String strSREG_14 = toNumeralString(SREG_14.getState());
+				String strSREG_15 = toNumeralString(SREG_15.getState());
+				String strSREG_16 = toNumeralString(SREG_16.getState());
+				String strSREG_17 = toNumeralString(SREG_17.getState());
+				String strSREG_18 = toNumeralString(SREG_18.getState());
+				String strSREG_19 = toNumeralString(SREG_19.getState());
+				String strSREG_20 = toNumeralString(SREG_20.getState());
+				String strSREG_21 = toNumeralString(SREG_21.getState());
+				String strSREG_22 = toNumeralString(SREG_22.getState());
+				String strSREG_23 = toNumeralString(SREG_23.getState());
+				String strSREG_24 = toNumeralString(SREG_24.getState());
+				String strSREG_25 = toNumeralString(SREG_25.getState());
+				String strSREG_26 = toNumeralString(SREG_26.getState());
+				String strSREG_27 = toNumeralString(SREG_27.getState());
+				String strSREG_28 = toNumeralString(SREG_28.getState());
+				String strSREG_29 = toNumeralString(SREG_29.getState());
+				String strSREG_30 = toNumeralString(SREG_30.getState());
+				String strSREG_31 = toNumeralString(SREG_31.getState());
+				String strSREG_32 = toNumeralString(SREG_32.getState());
+				String strSREG_33 = toNumeralString(SREG_33.getState());
+				String strSREG_34 = toNumeralString(SREG_34.getState());
+				String strSREG_35 = toNumeralString(SREG_35.getState());
+				String strSREG_36 = toNumeralString(SREG_36.getState());
+				String strSREG_37 = toNumeralString(SREG_37.getState());
+				String strSREG_38 = toNumeralString(SREG_38.getState());
+				String strSREG_39 = toNumeralString(SREG_39.getState());
+				String strSREG_40 = toNumeralString(SREG_40.getState());
+				String strSREG_41 = toNumeralString(SREG_41.getState());
+				String strSREG_42 = toNumeralString(SREG_42.getState());
+				String strSREG_43 = toNumeralString(SREG_43.getState());
+				String strSREG_44 = toNumeralString(SREG_44.getState());
+				String strSREG_45 = toNumeralString(SREG_45.getState());
+				String strSREG_46 = toNumeralString(SREG_46.getState());
+				String strSREG_47 = toNumeralString(SREG_47.getState());
+				String strSREG_48 = toNumeralString(SREG_48.getState());
+				String strSREG_49 = toNumeralString(SREG_49.getState());
+				String strSREG_50 = toNumeralString(SREG_50.getState());
+				String strSREG_51 = toNumeralString(SREG_51.getState());
+				String strSREG_52 = toNumeralString(SREG_52.getState());
+				String strSREG_53 = toNumeralString(SREG_53.getState());
+				String strSREG_54 = toNumeralString(SREG_54.getState());
+				String strSREG_55 = toNumeralString(SREG_55.getState());
+				String strSREG_56 = toNumeralString(SREG_56.getState());
+				String strSREG_57 = toNumeralString(SREG_57.getState());
+				String strSREG_58 = toNumeralString(SREG_58.getState());
+				String strSREG_59 = toNumeralString(SREG_59.getState());
+				String strSREG_60 = toNumeralString(SREG_60.getState());
+				String strSREG_61 = toNumeralString(SREG_61.getState());
+				String strSREG_62 = toNumeralString(SREG_62.getState());
+				String strSREG_63 = toNumeralString(SREG_63.getState());
+				String strSREG_64 = toNumeralString(SREG_64.getState());
+				String strSREG_65 = toNumeralString(SREG_65.getState());
+				String strSREG_66 = toNumeralString(SREG_66.getState());
+				String strSREG_67 = toNumeralString(SREG_67.getState());
+				String strSREG_68 = toNumeralString(SREG_68.getState());
+				String strSREG_69 = toNumeralString(SREG_69.getState());
+				String strSREG_70 = toNumeralString(SREG_70.getState());
+				String strSREG_71 = toNumeralString(SREG_71.getState());
+				String strSREG_72 = toNumeralString(SREG_72.getState());
+				String strSREG_73 = toNumeralString(SREG_73.getState());
+				String strSREG_74 = toNumeralString(SREG_74.getState());
+				String strSREG_75 = toNumeralString(SREG_75.getState());
+				String strSREG_76 = toNumeralString(SREG_76.getState());
+				String strSREG_77 = toNumeralString(SREG_77.getState());
+				String strSREG_78 = toNumeralString(SREG_78.getState());
+				String strSREG_79 = toNumeralString(SREG_79.getState());
+				String strSREG_80 = toNumeralString(SREG_80.getState());
+				String strSREG_81 = toNumeralString(SREG_81.getState());
+				String strSREG_82 = toNumeralString(SREG_82.getState());
+				String strSREG_83 = toNumeralString(SREG_83.getState());
+				String strSREG_84 = toNumeralString(SREG_84.getState());
+				String strSREG_85 = toNumeralString(SREG_85.getState());
+				String strSREG_86 = toNumeralString(SREG_86.getState());
+				String strSREG_87 = toNumeralString(SREG_87.getState());
+				String strSREG_88 = toNumeralString(SREG_88.getState());
+				String strSREG_89 = toNumeralString(SREG_89.getState());
+				String strSREG_90 = toNumeralString(SREG_90.getState());
+				String strSREG_91 = toNumeralString(SREG_91.getState());
+				String strSREG_92 = toNumeralString(SREG_92.getState());
+				String strSREG_93 = toNumeralString(SREG_93.getState());
+				String strSREG_94 = toNumeralString(SREG_94.getState());
+				String strSREG_95 = toNumeralString(SREG_95.getState());
+				
+				String strIVREF = toNumeralString(IVREFON.getState());
+				
+				String strSELDAC = "0";
+						
+				if (rdbtnDACSELA.isSelected()){
+					strSELDAC = "1";
+				} else {
+					strSELDAC = "0";
+				}
+				
+				String strVoltVal = dacField.getText();
+				int voltVal = Integer.parseInt(strVoltVal);
+				
+				voltVal = voltVal + 1;
+				
+				strVoltVal = Integer.toString(voltVal);
+				
+				dacField.setText(strVoltVal);
+
 				
 				String strBinVoltVal = String.format("%14s", Integer.toBinaryString(voltVal)).replace(' ', '0');
 				
