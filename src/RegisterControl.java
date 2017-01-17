@@ -1067,9 +1067,10 @@ public class RegisterControl {
 		gbc_dacField.gridy = 30;
 		frame.getContentPane().add(dacField, gbc_dacField);
 		
-		Button sendPlus = new Button("+");
+		Button sendPlus = new Button("DN++");
 		sendPlus.setActionCommand("sendPlus");
 		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.anchor = GridBagConstraints.WEST;
 		gbc_button.insets = new Insets(0, 0, 5, 5);
 		gbc_button.gridx = 5;
 		gbc_button.gridy = 30;
@@ -1100,9 +1101,10 @@ public class RegisterControl {
 		gbc_IVREFON.gridy = 31;
 		frame.getContentPane().add(IVREFON, gbc_IVREFON);
 		
-		Button sendMinus = new Button("-");
+		Button sendMinus = new Button("DN- -");
 		sendMinus.setActionCommand("sendMinus");
 		GridBagConstraints gbc_button_1 = new GridBagConstraints();
+		gbc_button_1.anchor = GridBagConstraints.WEST;
 		gbc_button_1.insets = new Insets(0, 0, 5, 5);
 		gbc_button_1.gridx = 5;
 		gbc_button_1.gridy = 31;
